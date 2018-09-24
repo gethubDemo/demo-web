@@ -5,7 +5,10 @@ import App from './App'
 import router from './router'
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import axios from 'axios'
 
+Vue.prototype.$ajax = axios
+// 需二次封装，只可在指定环境中使用get，post
 Vue.use(Element);
 
 Vue.config.productionTip = false
