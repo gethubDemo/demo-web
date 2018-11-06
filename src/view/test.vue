@@ -1,41 +1,14 @@
 <template>
   <div>
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-      <el-radio-button :label="false">展开</el-radio-button>
-      <el-radio-button :label="true">收起</el-radio-button>
-    </el-radio-group>
-    <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
-    </el-menu>
+    <el-row>
+      <el-button @click="test()">默认按钮</el-button>
+      <el-button type="primary" @click="foo()">主要按钮</el-button>
+      <el-button type="success" @click="test2()">成功按钮</el-button>
+      <el-button type="info" @click="test3()">信息按钮</el-button>
+      <el-button type="warning" @click="test4()">警告按钮</el-button>
+      <el-button type="danger" id='redButton'>危险按钮</el-button>
+    </el-row>
+
   </div>
 </template>
 
@@ -47,11 +20,124 @@
       };
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+      test() {
+        // const promise=new Promise(function(resolve,reject){
+        //   // console.log('Promise');
+        //   reject(3);
+        // })
+        // promise.then((value) => {console.log(value)}, (value) => {console.log(value)}).finally(() => {})
+        // .then((value)=>{
+        //   console.log(value);
+        // }).catch((error)=>{
+        //   console.log(error);
+        // })
+        // .finally((value)=>{
+        //   console.log(value)
+        // })
+
+        // 等同于
+        // promise
+        //   .then(
+        //     result => {
+        //       // 语句
+        //       return result;
+        //     },
+        //     error => {
+        //       // 语句
+        //       throw error;
+        //     }
+        //   );
+        let url = '/api/test';
+        return new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('get', url);
+          xhr.onload = () => resolve(xhr.responseText);
+          xhr.onerror = () => reject(xhr.statusText);
+          xhr.send();
+        }).then((value) => {
+          console.log(value);
+        }, (value) => {
+          console.log(value);
+        }).catch(err => {
+          console.log("error" + err);
+        })
       },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
+
+      async foo() {
+        console.log('start')
+        var a = await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(1);
+          }, 2000);
+        });
+        console.log(a + "==>2s");
+        try {
+          var b = await new Promise((resolve, reject) => {
+            setTimeout(() => {
+              reject(0);
+            }, 1000);
+          })
+        } catch (error) {
+          console.log(error + '==>1s');
+        }
+        var sleep = await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve('sleep');
+          }, 2000);
+        })
+        console.log(sleep + '==>2s');
+        var c = await 3;
+        console.log(c + '==>0s');
+      },
+
+      test2() {
+        let then = {
+          then: function (resolve, reject) {
+            resolve(42);
+          }
+        }
+        let p = Promise.resolve(then);
+        p.then(value => {
+          console.log(value)
+        })
+      },
+      test3() {
+        setTimeout(function () {
+          console.log('three');
+        }, 0);
+        
+        setTimeout(function () {
+          console.log('four');
+        }, 1000);
+
+        Promise.resolve().then(function () {
+          console.log('two');
+        });
+        console.log('one');
+      },
+      test4(){
+        // const f=()=>{
+        //   console.log('now')
+        // }
+        // Promise.resolve().then(f)
+        // console.log("next")
+        // const f=()=>{
+        //   console.log("now")
+        // }
+        // (async ()=>f())();
+        // (async ()=>f())();
+        // console.log("next")
+        // const f=()=>console.log('now');
+        // // (
+        // //   ()=>new Promise(resolve=>resolve(f()))
+        // // )();
+        // Promise.try(f)
+        // console.log('next')
+        function f(id){
+          return database.users.get({id:userId}).then(function(user){
+            return user.name;
+          })
+        }
       }
     }
   }
