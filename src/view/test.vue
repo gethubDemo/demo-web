@@ -1,14 +1,14 @@
 <template>
   <div>
+      <span style="color:#cc0000;">Object.prototype.toString.call(arr) === "[object Array]";</span>
     <el-row>
       <el-button @click="test()">默认按钮</el-button>
       <el-button type="primary" @click="foo()">主要按钮</el-button>
       <el-button type="success" @click="test2()">成功按钮</el-button>
       <el-button type="info" @click="test3()">信息按钮</el-button>
       <el-button type="warning" @click="test4()">警告按钮</el-button>
-      <el-button type="danger" id='redButton'>危险按钮</el-button>
+      <el-button type="danger" id='redButton' @click='isArrayF()'>危险按钮</el-button>
     </el-row>
-
   </div>
 </template>
 
@@ -16,7 +16,13 @@
   export default {
     data() {
       return {
-        isCollapse: true
+        string:"aa",
+        num:12,
+        isCollapse: true,
+        obj:{
+          k1:'v1'
+        },
+        arr:[1,2]
       };
     },
     methods: {
@@ -138,6 +144,29 @@
             return user.name;
           })
         }
+      },
+      isArrayF(){
+          this.$get('/api/v2/movie/top250',{})
+        .then((response) => {
+          console.log(response)
+        })
+      //  if(Array.isArray){
+      //    console.log(Array.isArray)
+      //    console.log(Array.isArray(this.obj))
+      //    console.log(Array.isArray(this.arr))
+      //   //  if
+      //    console.log(Object.prototype.toString.call(this.obj))
+      //   //  console.log(Array.isArray(this.arr))
+      //   console.log(typeof(this.obj))
+      //   console.log(typeof(this.arr))
+      //   console.log(typeof(this.obj))
+      //  }
+      // console.log(this.string+"==>"+typeof(this.string))
+      // console.log(this.num+"==>"+typeof(this.num))
+      // console.log(this.isCollapse+"==>"+typeof(this.isCollapse))
+      // console.log(this.obj+"==>"+typeof(this.obj))
+      // console.log(this.arr+"==>"+typeof(this.arr))
+
       }
     }
   }
