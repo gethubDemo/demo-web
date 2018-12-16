@@ -1,8 +1,8 @@
-<template>
+<!--<template>
   <div>
       <span style="color:#cc0000;">Object.prototype.toString.call(arr) === "[object Array]";</span>
     <el-row>
-      <el-button @click="test()">默认按钮</el-button>
+      <el-button @click="test">默认按钮</el-button>
       <el-button type="primary" @click="foo()">主要按钮</el-button>
       <el-button type="success" @click="test2()">成功按钮</el-button>
       <el-button type="info" @click="test3()">信息按钮</el-button>
@@ -27,46 +27,15 @@
     },
     methods: {
       test() {
-        // const promise=new Promise(function(resolve,reject){
-        //   // console.log('Promise');
-        //   reject(3);
-        // })
-        // promise.then((value) => {console.log(value)}, (value) => {console.log(value)}).finally(() => {})
-        // .then((value)=>{
-        //   console.log(value);
-        // }).catch((error)=>{
-        //   console.log(error);
-        // })
-        // .finally((value)=>{
-        //   console.log(value)
-        // })
-
-        // 等同于
-        // promise
-        //   .then(
-        //     result => {
-        //       // 语句
-        //       return result;
-        //     },
-        //     error => {
-        //       // 语句
-        //       throw error;
-        //     }
-        //   );
-        let url = '/api/test';
-        return new Promise((resolve, reject) => {
-          const xhr = new XMLHttpRequest();
-          xhr.open('get', url);
-          xhr.onload = () => resolve(xhr.responseText);
-          xhr.onerror = () => reject(xhr.statusText);
-          xhr.send();
-        }).then((value) => {
-          console.log(value);
-        }, (value) => {
-          console.log(value);
-        }).catch(err => {
-          console.log("error" + err);
+        let url = ' https://easy-mock.com/mock/5be058f8480cbf31134e7ba3/api/test'
+        // let params={
+        //   username:'ljl',
+        //   password:123  
+        // }
+        this.$get(url).then(response=>{
+          console.log(response.data)
         })
+        
       },
 
       async foo() {

@@ -7,8 +7,9 @@ import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import {post,put,patch,get} from './utils/http'
+import axiosApi from './api/axios.js'
 
-
+Vue.use(axiosApi)
 Vue.prototype.$post=post
 Vue.prototype.$get=get
 Vue.prototype.$put=put
