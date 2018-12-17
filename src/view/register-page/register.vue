@@ -28,8 +28,12 @@
          </el-form-item>
          
     </el-form>
-    <i class="el-icon-back"   @click="back" style="float:left">返回</i>
-    <i class="el-icon-share"   @click="goLogin" style="float:right">已有账号？直接登录</i>
+    <router-link to="/login">
+    <i class="el-icon-back"   style="float:left;  color:gray">返回</i>
+    </router-link>
+<router-link to="/login">
+     <i class="el-icon-share"  style="float:right; color:gray">已有账号？直接登录</i>
+</router-link>
     </el-card>
     </div>
 </template>

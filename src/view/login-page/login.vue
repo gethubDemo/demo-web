@@ -17,10 +17,12 @@
          </el-form-item>
         </center>
       <div>
-         
-         <i class="el-icon-back"   @click="back" style="float:left">返回</i>
-         <i class="el-icon-share"  style="float:right">没有账号？直接注册</i>
-          
+         <router-link to="#">
+         <i class="el-icon-back"   style="float:left ; color :gray">返回</i>
+         </router-link>
+         <router-link to="/register">
+         <i class="el-icon-share"  style="float:right; color :gray">没有账号？直接注册</i>
+         </router-link>
       </div>
       </el-form>
     </el-card>

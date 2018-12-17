@@ -10,13 +10,7 @@ export const loginPage={
       },
       methods: {
         onSubmit() {
-          console.log('submit!');
-        },
-        back(){
-
-        },
-        goRegister(){
-          
+          console.log(this.form)
         }
 
 

@@ -58,7 +58,7 @@ export const registerPage={
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              alert('submit!');
+              console.log(this.ruleForm2)
             } else {
               console.log('error submit!!');
               return false;
@@ -69,7 +69,7 @@ export const registerPage={
           this.$refs[formName].resetFields();
         },
         goLogin(){
-          
+          window.location('./login.vue')
         },
         back(){
 
