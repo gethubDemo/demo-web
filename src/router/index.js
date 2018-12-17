@@ -28,5 +28,9 @@ export default new Router({
       path:'/',
       component:pageIntro
     }
+    // ,{
+    //   path:'/login'
+
+    // }
   ]
 })

@@ -27,15 +27,13 @@
     },
     methods: {
       test() {
-        let url = ' https://easy-mock.com/mock/5be058f8480cbf31134e7ba3/api/test'
-        // let params={
-        //   username:'ljl',
-        //   password:123  
-        // }
-        this.$get(url).then(response=>{
-          console.log(response.data)
-        })
-        
+        let url="/api/list"
+        console.log(url)
+        this.$get(url).then(response => {
+          // success callback
+        }).catch(error => {
+          console.log(error);
+        });
       },
 
       async foo() {
