@@ -252,40 +252,41 @@
         console.log('关闭连接')
       },
       redirect(num) {
+        console.log(this.$router)
         if (num === 1) {
           this.$router.push({
-            name: 'index'
+            path  : ''
           })
         } else if (num === 2) {
           this.$router.push({
-            name: 'userInfo'
+            path: 'userInfo'
           })
         } else if (num === 3) {
           this.$router.push({
-            name: 'infoCenter'
+            path: 'infoCenter'
           })
         } else if (num === 4) {
           this.$router.push({
-            name: 'login'
+            path: '/login'
           })
         } else if (num === 5) {
           this.$router.push({
-            name: 'infoCenter'
+            path: 'infoCenter'
           })
         } else if (num === 6) {
           this.$router.push({
-            name: 'hrView'
+            path: 'hrView'
           })
         }
       },
       toregister(command) {
         if (command === 'true') {
           this.$router.push({
-            name: 'register'
+            path: 'register'
           })
         } else {
           this.$router.push({
-            name: 'hrRegister'
+            path: 'hrRegister'
           })
         }
       },
