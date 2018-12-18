@@ -255,7 +255,7 @@
         console.log(this.$router)
         if (num === 1) {
           this.$router.push({
-            path  : ''
+            path  : '/'
           })
         } else if (num === 2) {
           this.$router.push({

@@ -6,34 +6,39 @@ import pageIntro from '../view/page-intro/page-intro.vue'
 import CommonPage from '../components/commonPage.vue'
 import registerPage from '../view/register-page/register-page.vue'
 import hrRegisterPage from '../view/hrRegister-page/hrRegister-page.vue'
+import userInfoPage from '../view/userInfo-page/userInfo-page.vue'
+import hrInfoPage from '../view/hrInfo-page/hrInfo-page.vue'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path:'/test',
-      component:test
-    },{
-      path:'/',
+  routes: [{
+      path: '/test',
+      component: test
+    }, {
+      path: '/',
       component: CommonPage,
-      children:[
-        {
-          path:'/',
-          component:pageIntro
-        }
-      ]
+      children: [{
+        path: '/',
+        component: pageIntro
+      }, {
+        path: '/userInfo',
+        component: userInfoPage
+      },{
+        path:'/hrInfo',
+        component:hrInfoPage
+      }]
     },
     {
-      path:'/login',
-      component:loginPage
+      path: '/login',
+      component: loginPage
     },
     {
-      path:'/register',
-      component:registerPage
+      path: '/register',
+      component: registerPage
     },
     {
-      path:'/hrRegister',
-      component:hrRegisterPage
+      path: '/hrRegister',
+      component: hrRegisterPage
     }
   ]
 })
