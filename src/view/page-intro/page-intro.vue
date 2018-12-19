@@ -9,7 +9,7 @@
         </el-carousel>
       </div>
     </div>
-    <div class="division">
+    <!-- <div class="division">
       <h3>热门企业</h3>
       <h3 style="color: #888;font-weight: 400">--- Hot ---</h3>
     </div>
@@ -19,23 +19,23 @@
           <img :src="item.avatar" class="image" @click="getCompanyDetail(item.id)">
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="division">
       <h3>热门职位</h3>
       <h3 style="color: #888;font-weight: 400">--- JOBS ---</h3>
     </div>
     <div class="newsContain">
       <div class="temp">
-        <div class="newsItem" v-for="(item, key) in jobList" :key="key" @click="jobDetail(item.recruit.id)">
+        <div class="newsItem" v-for="(item, key) in jobList" :key="key" @click="jobDetail(item.id)">
           <div class="picContain" ontouchstart="this.classList.toggle('hover');">
             <div class="flipper">
-              <span class="itemPic">{{item.company.name}}</span>
-              <span class="back">{{item.company.createTime}}</span>
+              <span class="itemPic">{{item.company}}</span>
+              <span class="back">{{item.time}}</span>
             </div>
           </div>
           <div>
-            <p>{{item.recruit.title}}</p>
-            <p style="margin-top:25px">{{item.recruit.content}}</p>
+            <p>{{item.title}}</p>
+            <p style="margin-top:25px">{{item.discription}}</p>
           </div>
         </div>
       </div>
@@ -60,7 +60,6 @@
 </template>
 
 <script>
-  // import fetch from '../api/fetch'
   import {
     pageIntro
   } from './page-intro.js'

@@ -6,21 +6,22 @@ axios.defaults.timeout = 5000;
 axios.defaults.baseURL ='';
 
 
-
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-    const token = document.cookie;
-    //  Cookies.get('username');//注意使用的时候需要引入cookie方法，推荐js-cookie
-    console.log("THIS is A"+ token)
+    const token = window.localStorage.username;//注意使用的时候需要引入cookie方法，推荐js-cookie
     config.data = JSON.stringify(config.data);
     config.headers = {
-      'Content-Type':'application/json'
+      'Content-Type':'application/json',
+      'Authorization':token
       // 'application/x-www-form-urlencoded'
     }
-    if(token){
-      config.params = {'token':token}
+    if (window.localStorage.username) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ` + window.localStorage.username
     }
+    // if(token){
+    //   config.params = {'token':token}
+    // }
     return config;
   },
   error => {

@@ -1,6 +1,4 @@
 
-// import fetch from '../api/fetch'
-
 export const jobInfo={
     data () {
         return {
@@ -18,40 +16,32 @@ export const jobInfo={
       methods: {
         getJobDetail () {
           let jobId = localStorage.getItem('jobId')
-          fetch
-            .getJobDetail(jobId)
-            .then(res => {
-              if (res.status === 200) {
-                if (res.data.data === null) {
-                  this.isShow = true
-                }
-                if (res.data.success === true) {
-                  this.company = res.data.data.company
-                  this.hr = res.data.data.hr
-                  this.recruit = res.data.data.recruit
-                  this.recruitId = this.recruit.id
-                  this.title = this.recruit.title
-                }
-              }
-            })
-            .catch(e => {
-              console.log(e)
-            })
+          let url='/api/job/query'
+          this.get(url,{
+            id:jobId
+          }).then(res=>{
+            this.company=res
+          })
+          let urlS='/api/job/IdQueryUser'
+          this.get(urlS,{
+            id:jobId
+          }).then(res=>{
+            this.hr=res.data.tUserByUserId
+          })
         },
         sendResume () {
-          let body = {
-            recruitId: this.recruitId,
-            title: this.title
+          let param = {
+            jobId:localStorage.getItem('jobId'),
+            userId:localStorage.getItem('userId')
           }
-          fetch.deliveryReusme(body).then(res => {
-            if (res.status === 200) {
-              this.$message({
-                message: res.data.data,
-                type: 'success'
-              })
-            }
-          }).catch(e => {
-            console.log(e)
+          let url='/api/jobApplicant/add'
+          this.get(url,param).then(res=>{
+            this.$alert('请求成功', '提示', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.$router.push({path: '/'})
+              }
+            });
           })
         }
       },

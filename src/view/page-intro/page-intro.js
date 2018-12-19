@@ -56,6 +56,7 @@ export const pageIntro={
           }
           console.log("sada")
          this.post(url,param).then(res=>{
+           this.jobList=res.data.content
            console.log(res.data)
          })
         },

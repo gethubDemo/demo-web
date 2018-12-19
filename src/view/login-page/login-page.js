@@ -58,6 +58,14 @@ export const loginPage={
               }
               let url='/api/user/login'
               this.post(url,param).then(res=>{
+                var storage=window.localStorage
+                // storage['username']=res.data.token
+                storage.setItem("username",res.data.token)
+                localStorage.setItem('userId', res.data.userId)
+                // console.log(res.data.userId)
+                // let token = window.localStorage.getItem('token')
+                // let token =res.data.token
+                // console.log("TOKEN"+token)
                 this.$router.push({
                   path:"/"
                 })

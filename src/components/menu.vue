@@ -59,93 +59,7 @@
     </div>
   </header>
 </template>
-<style>
-  html * {
-    padding: 0;
-    margin: 0;
-  }
 
-  * {
-    box-sizing: border-box;
-  }
-
-  header {
-    width: 100%;
-    height: 60px;
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  .contain {
-    display: flex;
-    justify-content: space-between;
-    width: 1000px;
-    margin: auto;
-    line-height: 60px;
-    font-weight: 500;
-    margin-top:-60px;
-  }
-
-  .contain .tab {
-    color: white;
-    font-size: 16px;
-    margin: 10px;
-    padding: 6px;
-    border-radius: 4px;
-  }
-
-  .icon {
-    position: relative;
-    background: red;
-    font-size: 10px;
-    border-radius: 50%;
-    left: 0;
-    top: -8px;
-    padding: 0 5px;
-    color: #fff;
-  }
-
-  .requireinput {
-    width: 35%;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    outline: 0;
-    background: #fff;
-    padding: 0 15px;
-    margin: auto 11.2px 14px auto;
-  }
-
-  .requireselect {
-    width: 35%;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    outline: 0;
-    background: #fff;
-    padding: 0 15px;
-    margin: auto 11.2px 14px auto;
-  }
-
-  .require {
-    width: 80%;
-  }
-
-  .addbtn {
-    position: relative;
-    top: 40px;
-    left: 280px;
-  }
-
-  .delete {
-    color: #dcdfe6;
-    position: relative;
-    left: -10px;
-  }
-
-  .delete:hover {
-    color: red;
-  }
-</style>
 <script>
   /* eslint-disable standard/object-curly-even-spacing */
 
@@ -355,3 +269,91 @@
     }
   }
 </script>
+
+<style>
+  html * {
+    padding: 0;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  header {
+    width: 100%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .contain {
+    display: flex;
+    justify-content: space-between;
+    width: 1000px;
+    margin: auto;
+    line-height: 60px;
+    font-weight: 500;
+    margin-top:-60px;
+  }
+
+  .contain .tab {
+    color: white;
+    font-size: 16px;
+    margin: 10px;
+    padding: 6px;
+    border-radius: 4px;
+  }
+
+  .icon {
+    position: relative;
+    background: red;
+    font-size: 10px;
+    border-radius: 50%;
+    left: 0;
+    top: -8px;
+    padding: 0 5px;
+    color: #fff;
+  }
+
+  .requireinput {
+    width: 35%;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    outline: 0;
+    background: #fff;
+    padding: 0 15px;
+    margin: auto 11.2px 14px auto;
+  }
+
+  .requireselect {
+    width: 35%;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    outline: 0;
+    background: #fff;
+    padding: 0 15px;
+    margin: auto 11.2px 14px auto;
+  }
+
+  .require {
+    width: 80%;
+  }
+
+  .addbtn {
+    position: relative;
+    top: 40px;
+    left: 280px;
+  }
+
+  .delete {
+    color: #dcdfe6;
+    position: relative;
+    left: -10px;
+  }
+
+  .delete:hover {
+    color: red;
+  }
+</style>

@@ -8,6 +8,7 @@ import registerPage from '../view/register-page/register-page.vue'
 import hrRegisterPage from '../view/hrRegister-page/hrRegister-page.vue'
 import userInfoPage from '../view/userInfo-page/userInfo-page.vue'
 import hrInfoPage from '../view/hrInfo-page/hrInfo-page.vue'
+import jobInfo from '../view/page-intro/job-info/job-info.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,9 @@ export default new Router({
     {
       path: '/hrRegister',
       component: hrRegisterPage
+    },{
+      path:'/jobInfo',
+      component:jobInfo
     }
   ]
 })
