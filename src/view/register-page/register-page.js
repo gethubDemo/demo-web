@@ -88,36 +88,6 @@ export const registerPage={
         backIndex() {
           this.$router.go(-1)
         },
-        sendCode() {
-          const TIME_COUNT = 60;
-          fetch
-            .getCode(this.hrInfo.phone)
-            .then(res => {
-              if (res.status === 200) {
-                this.confirmCode = res.data.data;
-              }
-            })
-            .catch(e => {
-              console.log(e);
-            });
-          if (!this.timer) {
-            this.count = TIME_COUNT;
-            this.show = false;
-            this.timer = setInterval(() => {
-              if (this.count > 0 && this.count <= TIME_COUNT) {
-                this.count--;
-                this.msg = this.count + "s后发送";
-                if (this.count === 0) {
-                  this.msg = "发送验证码";
-                }
-              } else {
-                this.show = true;
-                clearInterval(this.timer);
-                this.timer = null;
-              }
-            }, 1000);
-          }
-        },
         hrSubmit(formName) {
           this.$refs[formName].validate(valid => {
             if (valid) {
@@ -127,42 +97,22 @@ export const registerPage={
         finderSubmit(formName) {
           this.$refs[formName].validate(valid => {
             if (valid) {
-              let res = {
+              let url='/api/user/register'
+              let param = {
                 email: this.hrInfo.email,
                 phone: this.hrInfo.phone,
                 password: this.hrInfo.password,
-                username: this.hrInfo.username
+                username: this.hrInfo.username,
+                birthday:'2018-12-11',
+                sex:1,
+                address:'jsjhsj',
+                company:"da"
               };
-              fetch
-                .userRegister(res)
-                .then(res => {
-                  if (res.status == 200) {
-                    console.log("验证码", this.confirmCode, this.hrInfo.code);
-                    if (this.confirmCode == this.hrInfo.code) {
-                      this.$message({
-                        message: "注册成功",
-                        type: "success"
-                      });
-                      this.$router.push({ name: "login" });
-                    } else if (res.data.code == 1004) {
-                      this.$message({
-                        message: res.data.msg,
-                        type: "warning"
-                      });
-                    } else {
-                      this.$message({
-                        message: "验证码错误",
-                        type: "warning"
-                      });
-                    }
-                  }
+              this.post(url,param).then(res=>{
+                router.go({
+                  path:'/login'
                 })
-                .catch(e => {
-                  this.$message({
-                    message: "注册失败",
-                    type: "warning"
-                  });
-                });
+              })
             }
           });
         }

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 export const loginPage={
     data() {
         var validUsername = (rule, value, callback) => {
@@ -51,41 +52,16 @@ export const loginPage={
         submitForm(formName) {
           this.$refs[formName].validate(valid => {
             if (valid) {
-              fetch
-                .userLogin(this.loginInfo)
-                .then(res => {
-                  if (res.status === 200) {
-                    if (res.data.success === true) {
-                      localStorage.setItem('token', res.data.data.token)
-                      localStorage.setItem('companyId', res.data.data.companyId)
-                      localStorage.setItem('role', res.data.data.role)
-                      sessionStorage.setItem('userId', res.data.data.userId)
-                      if (res.data.data.role === 2) {
-                        this.$router.push({
-                          name: 'userInfo',
-                          params: {
-                            refresh: 1
-                          }
-                        })
-                      } else {
-                        this.$router.push({
-                          name: 'hrView',
-                          params: {
-                            hrRefresh: 2
-                          }
-                        })
-                      }
-                    } else {
-                      this.$message({
-                        message: '用户名或密码错误',
-                        type: 'warning'
-                      })
-                    }
-                  }
+              let param={
+                username:this.loginInfo.username,
+                password:this.loginInfo.password
+              }
+              let url='/api/user/login'
+              this.post(url,param).then(res=>{
+                this.$router.push({
+                  path:"/"
                 })
-                .catch(e => {
-                  console.log(e)
-                })
+              })
             }
           })
         }

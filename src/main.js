@@ -6,12 +6,14 @@ import router from './router'
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import {post,put,patch,get} from './utils/http'
+import cookie from 'vue-js-cookie'
 
 Vue.prototype.post=post
 Vue.prototype.get=get
 Vue.prototype.put=put
 Vue.prototype.patch=patch
 
+Vue.prototype.cookie=cookie
 
 Vue.use(Element);
 

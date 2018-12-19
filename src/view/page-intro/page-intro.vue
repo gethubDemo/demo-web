@@ -55,7 +55,7 @@
       <a href="https://github.com/gethubDemo"><img src="../../assets/github4.png"><span>https://github.com/gethubDemo</span></a>
       <a href="https://github.com/Merlynr"><img src="../../assets/github4.png"><span>https://github.com/Merlynr</span></a>
     </div>
-    <test @getmess='get' :mess="mess"></test>
+    <!-- <test @getmess='get' :mess="mess"></test> -->
   </div>
 </template>
 

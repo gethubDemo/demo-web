@@ -17,7 +17,7 @@
         </el-form-item>
         <el-form-item label="验证码" prop="code">
         <el-input v-model.number="hrInfo.code"  style="width: 200px;padding-right: 10px;"></el-input>
-          <el-button  @click="sendCode">{{this.msg}}</el-button>
+          <el-button>{{this.msg}}</el-button>
         </el-form-item>
         <div>
           <el-form-item label="公司" prop="company">
@@ -48,7 +48,6 @@
 
 <script>/* eslint-disable indent,quotes,space-before-function-paren,brace-style */
 
-// import fetch from '../api/fetch'
 import {hrRegisterPage} from './hrRegister-page.js'
 
 export default {

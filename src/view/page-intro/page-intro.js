@@ -17,47 +17,47 @@ export const pageIntro={
         }
       },
       mounted () {
-        window.addEventListener('scroll', this.handler)
+        // window.addEventListener('scroll', this.handler)
         // this.getCompany()
-        // this.getJob()
+        this.getJob()
       },
       methods: {
         get(mess) {
           this.mess = mess;
-          alert(this.mess);
+          console.log(this.mess);
         },
-        handler() {
-          let info = document.getElementById('aboutusInfo') || null
-          let card = document.getElementsByClassName('temp')[0] || null
-          if (info === null || card === null) {
-              return;
-          }
-          else if (document.documentElement.scrollTop > 1000) {
-             card.classList.add('animated')
-             card.classList.add('bounceInLeft')
-             info.classList.add('animated')
-             info.classList.add('bounceInLeft')
-          } else {
-            info.classList.remove('animated')
-            info.classList.remove('bounceInLeft')
-            card.classList.remove('animated')
-            card.classList.remove('bounceInLeft')
-          }
-        },
+        // handler() {
+        //   let info = document.getElementById('aboutusInfo') || null
+        //   let card = document.getElementsByClassName('temp')[0] || null
+        //   if (info === null || card === null) {
+        //       return;
+        //   }
+        //   else if (document.documentElement.scrollTop > 1000) {
+        //      card.classList.add('animated')
+        //      card.classList.add('bounceInLeft')
+        //      info.classList.add('animated')
+        //      info.classList.add('bounceInLeft')
+        //   } else {
+        //     info.classList.remove('animated')
+        //     info.classList.remove('bounceInLeft')
+        //     card.classList.remove('animated')
+        //     card.classList.remove('bounceInLeft')
+        //   }
+        // },
         jobDetail (id) {
           localStorage.setItem('jobId', id)
-          this.$router.push({name: 'jobInfo'})
+          this.$router.push({path: 'jobInfo'})
         },
         getJob () {
-          fetch.findJob().then(res => {
-            if (res.status === 200) {
-              if (res.data.success === true) {
-                this.jobList = res.data.data.recruitList
-              }
-            }
-          }).catch(e => {
-            console.log(e)
-          })
+          console.log("getJob")
+          let url='/api/job/list';
+          let param={
+            page:0
+          }
+          console.log("sada")
+         this.post(url,param).then(res=>{
+           console.log(res.data)
+         })
         },
         getCompany () {
           // fetch.getCompany().then(res => {
@@ -72,7 +72,7 @@ export const pageIntro={
           this.$router.push({name: 'companyDetail'})
         }
       },
-      components: {
-        test: test
-      }
+      // components: {
+      //   test: test
+      // }
 }

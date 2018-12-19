@@ -17,7 +17,7 @@
         </el-form-item>
         <el-form-item label="验证码" prop="code">
           <el-input v-model.number="hrInfo.code" style="width: 200px;padding-right: 10px;"></el-input>
-          <el-button  @click="sendCode">
+          <el-button>
             {{this.msg}}
           </el-button>
         </el-form-item>

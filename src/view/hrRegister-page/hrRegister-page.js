@@ -86,38 +86,6 @@ export const hrRegisterPage={
         backIndex () {
           this.$router.push({path: '/'})
         },
-        sendCode() {
-          const TIME_COUNT = 60
-          fetch
-            .getCode(this.hrInfo.phone)
-            .then(res => {
-              if (res.status === 200) {
-                if (res.data.success === true) {
-                  this.confirmCode = res.data.data
-                }
-              }
-            })
-            .catch(e => {
-              console.log(e)
-            })
-          if (!this.timer) {
-            this.count = TIME_COUNT
-            this.show = false
-            this.timer = setInterval(() => {
-              if (this.count > 0 && this.count <= TIME_COUNT) {
-                this.count--
-                this.msg = this.count + "s后发送"
-                if (this.count === 0) {
-                  this.msg = '发送验证码'
-                }
-              } else {
-                this.show = true
-                clearInterval(this.timer)
-                this.timer = null
-              }
-            }, 1000)
-          }
-        },
         hrSubmit(formName) {
           this.$refs[formName].validate(valid => {
             if (valid) {
