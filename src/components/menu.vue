@@ -207,7 +207,8 @@
         let params = {
           title: this.publishInfo.title,
           discription: this.publishInfo.content,
-          company: "阿里巴巴"
+          company: "阿里巴巴",
+          salary:'20k'
         }
         this.$refs[formName].validate(valid => {
           if (valid) {
