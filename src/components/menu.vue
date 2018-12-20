@@ -198,17 +198,24 @@
         localStorage.removeItem('roleId')
         location.reload()
         this.$router.push({
-          path:"/"
+          path: "/"
         })
       },
       addjob(formName) {
         this.publishvisible = false
-        this.publishInfo.hrId = localStorage.getItem('userId')
-        this.publishInfo.companyId = localStorage.getItem('companyId')
+        let id = localStorage.getItem('userId')
+        let params = {
+          title: this.publishInfo.title,
+          discription: this.publishInfo.content
+        }
         this.$refs[formName].validate(valid => {
           if (valid) {
-            let url='/api/job/creat'
-
+            let url = "/api/job/creat?userId="+id
+            this.post(url,params).then(res => {
+              this.$router.push({
+                path: "/"
+              })
+            })
           }
         })
       },
