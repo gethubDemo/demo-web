@@ -19,7 +19,7 @@
         <table border="1" cellspacing="0" style="border-color:#ededed" class="mytable">
           <tr>
             <td>姓名：</td>
-            <td>{{getResumeList.name}}</td>
+            <td>{{getResumeList.username}}</td>
           </tr>
           <tr>
             <td>年龄：</td>
@@ -77,6 +77,60 @@
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        getResumeList: {
+          username: '',
+          sex: '',
+          age: '',
+          skills: [{
+            id: 1,
+            name: '',
+            level: '',
+            resumeId: 1
+          }],
+          school: '',
+          address: '',
+          endTime: 2019,
+          phone: '',
+          email: '',
+          introduce: '',
+          experience: '',
+          awards: '',
+          avatar: ''
+        },
+        list: [],
+        show: false,
+        getResumev: false
+      }
+    },
+    mounted() {
+      this.getList()
+    },
+    methods: {
+      getList() {
+        let url='/api/user/QueryAllApplicantByUserId'
+        this.get(url,{userId:localStorage.getItem('userId')}).then(res=>{
+          this.list=res.data[0]
+        })
+      },
+      getTableList(id) {
+        this.getResumev = true
+        let urlS='/api/user/findById'
+          this.get(urlS,{
+            id:id
+          }).then(res=>{
+            this.getResumeList=res.data
+          })
+      }
+    }
+  }
+</script>
+
+
 <style>
   .getResumeWrap {
     height: 1000px;
@@ -139,68 +193,3 @@
   }
 </style>
 
-<script>
-//   import fetch from '../../api/fetch'
-
-  export default {
-    data() {
-      return {
-        getResumeList: {
-          name: '',
-          sex: '',
-          age: '',
-          skills: [{
-            id: 1,
-            name: '',
-            level: '',
-            resumeId: 1
-          }],
-          school: '',
-          address: '',
-          endTime: 2019,
-          phone: '',
-          email: '',
-          introduce: '',
-          experience: '',
-          awards: '',
-          avatar: ''
-        },
-        list: [],
-        show: false,
-        getResumev: false
-      }
-    },
-    mounted() {
-    //   this.getList()
-    },
-    methods: {
-      getList() {
-        fetch.receiveResume().then(res => {
-          this.list = res.data.data.receiveList
-          if (this.list.length === 0) {
-            this.show = true
-          }
-        }).catch(e => {
-          console.log(e)
-        })
-      },
-      getTableList(id) {
-        this.getResumev = true
-        fetch
-          .getResume(id)
-          .then(res => {
-            if (res.status === 200) {
-              if (res.data.success === true) {
-                if (res.data.data !== null) {
-                  this.getResumeList = res.data.data
-                }
-              }
-            }
-          })
-          .catch(e => {
-            console.log(e)
-          })
-      }
-    }
-  }
-</script>

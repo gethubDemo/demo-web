@@ -34,7 +34,7 @@
             <el-form-item label="职位介绍" prop="content" class="jobinput">
               <el-input type="textarea" rows="10" class="require" v-model="publishInfo.content"></el-input>
             </el-form-item>
-            <el-form-item label="技术栈" prop="skillList">
+            <!-- <el-form-item label="技术栈" prop="skillList">
               <el-button @click="addskill()" class="addbtn">添加</el-button>
               <div v-for="(item, key) in publishInfo.skillList" :key="key">
                 <input placeholder="技术" class="requireinput" v-model="item.name" />
@@ -46,7 +46,7 @@
                 </select>
                 <i class="el-icon-error delete" @click="deleteItem(key)"></i>
               </div>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
               <el-button @click="addjob('publishInfo')">确定</el-button>
             </el-form-item>
@@ -164,7 +164,7 @@
           })
         } else if (num === 6) {
           this.$router.push({
-            path: 'hrView'
+            path: 'hrInfo'
           })
         }
       },
@@ -203,19 +203,12 @@
       },
       addjob(formName) {
         this.publishvisible = false
-        this.publishInfo.hrId = sessionStorage.getItem('userId')
+        this.publishInfo.hrId = localStorage.getItem('userId')
         this.publishInfo.companyId = localStorage.getItem('companyId')
         this.$refs[formName].validate(valid => {
           if (valid) {
-            fetch.publishJob(this.publishInfo).then(res => {
-              if (res.status === 200) {
-                this.publishvisible = false
-                this.amount++
-                this.$refs[formName].resetFields()
-              }
-            }).catch(e => {
-              console.log(e)
-            })
+            let url='/api/job/creat'
+
           }
         })
       },
