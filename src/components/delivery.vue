@@ -10,11 +10,58 @@
         <div class="resumeBox">
           <p>{{item.title}}</p>
           <p>投递时间{{item.time}}</p>
+          <p v-if="item.status==1">已同意</p>
+          <p v-else>暂未通过</p>
         </div>
       </el-card>
     </div>
   </div>
 </template>
+
+<script>
+//   import fetch from '../api/fetch'
+
+  export default {
+    data() {
+      return {
+        list: [],
+        show: true
+      }
+    },
+    mounted() {
+      this.getList()
+    },
+    methods: {
+      checkDetail(id) {
+        localStorage.setItem('jobId', id)
+        this.$router.push({path: 'jobInfo'})
+      },
+      getList() {
+        let userId=localStorage.getItem('userId')
+        let url='/api/jobApplicant/findApplicantJob'
+        this.get(url,{userId:userId}).then(res=>{
+          console.log(res)
+          this.list=res.data
+        })
+        // fetch
+        //   .deliveryList()
+        //   .then(res => {
+        //     if (res.status === 200) {
+        //       if (res.data.data === null) {
+        //         this.show = false
+        //       } else {
+        //         this.list = res.data.data.sendList ? res.data.data.sendList : []
+        //       }
+        //     }
+        //   })
+        //   .catch(e => {
+        //     console.log(e)
+        //   })
+      }
+    }
+  }
+</script>
+
 <style>
   .deliveryWrap {
     height: 1000px;
@@ -49,40 +96,4 @@
   }
 </style>
 
-<script>
-//   import fetch from '../api/fetch'
 
-  export default {
-    data() {
-      return {
-        list: [],
-        show: true
-      }
-    },
-    mounted() {
-      this.getList()
-    },
-    methods: {
-      checkDetail(id) {
-        localStorage.setItem('jobId', id)
-        this.$router.push({name: 'jobInfo'})
-      },
-      getList() {
-        fetch
-          .deliveryList()
-          .then(res => {
-            if (res.status === 200) {
-              if (res.data.data === null) {
-                this.show = false
-              } else {
-                this.list = res.data.data.sendList ? res.data.data.sendList : []
-              }
-            }
-          })
-          .catch(e => {
-            console.log(e)
-          })
-      }
-    }
-  }
-</script>

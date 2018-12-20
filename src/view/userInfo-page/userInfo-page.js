@@ -9,15 +9,15 @@ export const userInfoPage={
           activeIndex2: '1',
           btnText: '取消',
           list: {
-            nickname: '',
+            username: '',
             sex: '',
             address: '',
-            introduce: '',
+            birthday: '',
             endTime: '',
             education: '',
             school: '',
-            intentionCompany: '',
-            intentionJob: ''
+            email: '',
+            // intentionJob: ''
           },
           imageUrl: '',
           head: {},
@@ -30,34 +30,24 @@ export const userInfoPage={
         }
       },
       mounted () {
-        this.head = {
-          ContentType: 'application/json',
-          Authorization: 'Basic ' + localStorage.getItem('token')
-        }
-        // this.getUserInfo()
-        this.refresh = this.$route.params.refresh !== undefined ? this.$route.params.refresh : 0
-      },
-      watch: {
-        refresh () {
-          location.reload()
-        }
+        this.getUserInfo()
       },
       components: {
         user: Info,
-        myResume: Resume,
+        // myResume: Resume, 简历
         delivery: Delivery,
         setting: Setting,
       },
       methods: {
         getUserInfo () {
-          fetch
-            .getUserInfo()
-            .then(res => {
-              this.list = res.data.data !== null ? res.data.data : this.list
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          let userId = localStorage.getItem('userId')
+          let urlS='/api/user/findById'
+          this.get(urlS,{
+            id:userId
+          }).then(res=>{
+            this.list=res.data
+            this.list.sex=res.data.sex==1?'男':'女'
+          })
         },
         handleAvatarSuccess (res, file) {
           this.imageUrl = URL.createObjectURL(file.raw)

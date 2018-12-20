@@ -8,6 +8,7 @@
           <!-- <p>{{company.discription}}</p> -->
           <p>{{company.address}}<span>|</span>{{company.number}}<span>|</span>{{company.type}}</p>
         </div>
+        <el-button class="jobbtn" @click="goBack">返回</el-button>
         <el-button class="jobbtn" @click="sendResume()">投递简历</el-button>
       </el-card>
       <el-card class="jobcard">

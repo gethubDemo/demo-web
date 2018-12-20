@@ -4,7 +4,7 @@
       <th> 个人信息</th>
       <tr>
         <td>昵称：</td>
-        <td>{{list.nickname}}</td>
+        <td>{{list.username}}</td>
       </tr>
       <tr>
         <td>性别：</td>
@@ -15,8 +15,8 @@
         <td>{{list.address}}</td>
       </tr>
       <tr>
-        <td>我的简介：</td>
-        <td>{{list.introduce}}</td>
+        <td>出生日期：</td>
+        <td>{{list.birthday}}</td>
       </tr>
       <tr>
         <td>毕业年份：</td>
@@ -31,19 +31,19 @@
         <td>{{list.school}}</td>
       </tr>
       <tr>
-        <td>我想去的公司：</td>
-        <td>{{list.intentionCompany}}</td>
+        <td>邮箱</td>
+        <td>{{list.email}}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td> 我感兴趣的工作：</td>
         <td>{{list.intentionJob}}</td>
-      </tr>
+      </tr> -->
       <el-button class="edit" @click="changeEdit">编辑</el-button>
     </table>
     <el-form  :model="list" status-icon :rules="rules2" ref="list" label-width="100px" class="geren"
              v-if="isEdit">
-      <el-form-item label="昵称" prop="nickname">
-        <el-input v-model="list.nickname" auto-complete="off"></el-input>
+      <el-form-item label="昵称" prop="username">
+        <el-input v-model="list.username" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="sex">
         <el-select v-model="list.sex" placeholder="请选择性别" style="width: 100%">
@@ -54,8 +54,8 @@
       <el-form-item label="地址" prop="address">
         <el-input v-model="list.address"></el-input>
       </el-form-item>
-      <el-form-item label="我的简介" prop="introduce">
-        <el-input v-model="list.introduce"></el-input>
+      <el-form-item label="出身日期" prop="birthday">
+        <el-input v-model="list.birthday"></el-input>
       </el-form-item>
       <el-form-item label="毕业年份" prop="endTime">
         <el-select v-model="list.endTime" style="width: 100%">
@@ -73,12 +73,12 @@
       <el-form-item label="学校" prop="school">
         <el-input v-model="list.school"></el-input>
       </el-form-item>
-      <el-form-item label="我想去的公司" prop="intentionCompany">
-        <el-input v-model="list.intentionCompany"></el-input>
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="list.email"></el-input>
       </el-form-item>
-      <el-form-item label="感兴趣的工作" prop="intentionJob">
+      <!-- <el-form-item label="感兴趣的工作" prop="intentionJob">
         <el-input v-model="list.intentionJob"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button class='editor' @click="changeEdit">返回</el-button>
         <el-button  @click="submitInfo('list')">提交</el-button>
@@ -109,7 +109,7 @@
   export default {
     props: ['list', 'imageUrl'],
     data () {
-      var checknickname = (rule, value, callback) => {
+      var checkusername = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('昵称不能为空'))
         } else {
@@ -175,7 +175,7 @@
       return {
         isEdit: true,
         rules2: {
-          nickname: [{validator: checknickname, trigger: 'blur'}],
+          username: [{validator: checkusername, trigger: 'blur'}],
           sex: [{validator: checksex, trigger: 'blur'}],
           address: [{validator: checkaddress, trigger: 'blur'}],
           introduce: [{validator: checkintroduce, trigger: 'blur'}],
@@ -216,19 +216,11 @@
       submitInfo (formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            fetch
-              .putUserInfo(this.list)
-              .then(res => {
-                if (res.data.success) {
-                  this.$message({
-                    message: '保存成功',
-                    type: 'success'
-                  })
-                }
-              })
-              .catch(e => {
-                console.log(e)
-              })
+            let url='/api/user/update'
+            this.list.sex=this.list.sex=='男'?1:0
+            this.post(url,this.list).then(res=>{
+              this.$router.push({path: '/'})
+            })
           } else {
             console.log('error submit!!')
           }

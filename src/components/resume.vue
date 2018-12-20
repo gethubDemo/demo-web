@@ -5,7 +5,7 @@
       <el-button class="createResume" @click="dialogFormVisible = true">新建简历</el-button>
     </div>
     <el-card v-if="haveResume" class="resumeCard">
-      <p>个人简历-{{resumeList.name}}</p>
+      <p>个人简历-{{resumeList.username}}</p>
       <el-button class="checkBtn" @click="resumeFormVisible = true">查看简历</el-button>
     </el-card>
     <el-dialog title="我的简历" :visible.sync="resumeFormVisible" class="myDialog">
@@ -128,8 +128,8 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <el-dialog title="新建简历" :visible.sync="dialogFormVisible" class="myDialog">
-      <el-form :model="resumeList" status-icon :rules="resumerules" ref="resumeInfo" label-width="100px"
+    <el-dialog title="新建简历" :visible.sync="dialogFormVisible" class="myDialog" >
+      <el-form :model="resumeList" :rules="resumerules" ref="resumeInfo" label-width="100px" style="margin-right:-50px"
                class="resumeInfoForm">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="resumeList.name" auto-complete="off"></el-input>
@@ -197,95 +197,13 @@
     </el-dialog>
   </div>
 </template>
-<style>
-  .input {
-    width: 45%;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    outline: 0;
-    background: #fff;
-    padding: 0 15px;
-    margin: auto 11.2px 14px auto;
-  }
-  .deleteIt {
-    color: #dcdfe6;
-    position: relative;
-  }
-  .deleteIt:hover {
-    color: red;
-  }
-  .select {
-    width: 45%;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    outline: 0;
-    background: #fff;
-    padding: 0 15px;
-    margin: auto 11.2px 14px auto;
-  }
-
-  .mytable {
-    width: 100%;
-    margin: 0;
-  }
-
-  .progress {
-    width: 182px;
-    border: 0;
-  }
-
-  .modBtn {
-    margin: 14px;
-  }
-
-  .resumeCard {
-    width: 830px;
-    text-align: left;
-    height: 100px;
-    border-left: 5px solid #888;
-  }
-
-  .createResume {
-    position: relative;
-    left: 224px;
-  }
-
-  .resumeHead {
-    width: 100%;
-    border: 1px solid #ededed;
-    background: #f4f4f4;
-    padding: 21px;
-  }
-
-  .checkBtn {
-    position: relative;
-    top: -22.4px;
-    left: 680px;
-  }
-
-  .addbtn {
-    position: relative;
-    top: 40px;
-    left: 280px;
-  }
-
-  .resumeInfoForm {
-    width: 80%;
-  }
-  .myDialog {
-    width: 1500px;
-  }
-</style>
 
 <script>/* eslint-disable indent */
 
-// import fetch from '../api/fetch'
 
 export default {
   data () {
-    var checkname = (rule, value, callback) => {
+    var username = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('昵称不能为空'))
       } else {
@@ -369,9 +287,9 @@ export default {
       dialogFormVisible: false,
       resumeFormVisible: false,
       resumeList: {
-        userId: sessionStorage.getItem('userId'),
+        userId: '',
         address: '',
-        name: '',
+        username: '',
         sex: '',
         introduce: '',
         age: '',
@@ -415,7 +333,7 @@ export default {
         }
       ],
       resumerules: {
-        name: [{validator: checkname, trigger: 'blur'}],
+        username: [{validator: username, trigger: 'blur'}],
         sex: [{validator: checksex, trigger: 'blur'}],
         address: [{validator: checkaddress, trigger: 'blur'}],
         introduce: [{validator: checkintroduce, trigger: 'blur'}],
@@ -430,13 +348,8 @@ export default {
     }
   },
   mounted () {
-    let userId = sessionStorage.getItem('userId')
-    // this.getResume(userId)
-  },
-  watch: {
-    tip() {
-      location.reload()
-    }
+    let userId = localStorage.getItem('userId')
+    this.getResume(userId)
   },
   methods: {
     cancelChange () {
@@ -471,25 +384,12 @@ export default {
       })
     },
     getResume (userId) {
-      fetch
-        .getResume(userId)
-        .then(res => {
-          if (res.status === 200) {
-            if (res.data.success === true) {
-              if (res.data.data !== null) {
-                this.haveResume = true
-                this.resumeList = res.data.data
-                this.tableList = res.data.data
-                this.len = res.data.data.skills.length
-              } else {
-                this.haveResume = false
-              }
-            }
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        })
+      console.log(userId)
+      let url='/api/resume/find'
+      this.get(url,{userId:userId}).then(res=>{
+        console.log(res)
+        this.resumeList.username=res.data.tUserByUserId.username
+      })
     },
     addSkill () {
       let newskills = {
@@ -503,3 +403,87 @@ export default {
   }
 }
 </script>
+
+<style>
+  .input {
+    width: 45%;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    outline: 0;
+    background: #fff;
+    padding: 0 15px;
+    margin: auto 11.2px 14px auto;
+  }
+  .deleteIt {
+    color: #dcdfe6;
+    position: relative;
+  }
+  .deleteIt:hover {
+    color: red;
+  }
+  .select {
+    width: 45%;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    outline: 0;
+    background: #fff;
+    padding: 0 15px;
+    margin: auto 11.2px 14px auto;
+  }
+
+  .mytable {
+    width: 100%;
+    margin: 0;
+  }
+
+  .progress {
+    width: 182px;
+    border: 0;
+  }
+
+  .modBtn {
+    margin: 14px;
+  }
+
+  .resumeCard {
+    width: 830px;
+    text-align: left;
+    height: 100px;
+    border-left: 5px solid #888;
+  }
+
+  .createResume {
+    position: relative;
+    left: 224px;
+  }
+
+  .resumeHead {
+    width: 100%;
+    border: 1px solid #ededed;
+    background: #f4f4f4;
+    padding: 21px;
+  }
+
+  .checkBtn {
+    position: relative;
+    top: -22.4px;
+    left: 680px;
+  }
+
+  .addbtn {
+    position: relative;
+    top: 40px;
+    left: 280px;
+  }
+
+  .resumeInfoForm {
+    width: 80%;
+  }
+  .myDialog {
+    width: 1500px;
+  }
+</style>
+
+

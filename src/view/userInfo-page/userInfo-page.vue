@@ -8,7 +8,7 @@
             <img v-if="imageUrl" class="avatar">
             <img v-else class="img" :src="setDefault">
           </el-upload>
-          <span class="username">{{list ? list.nickname : ''}}</span>
+          <span class="username">{{list ? list.username : ''}}</span>
         </div>
       </el-card>
       <el-tabs type="border-card" tabPosition="left" style="width:1000px;height: 1000px;margin: 14px auto auto auto;position: sticky">
@@ -16,18 +16,18 @@
           <span slot="label">个人信息<i class="el-icon-arrow-right"></i></span>
           <user :list="list" :imageUrl="imageUrl" class="user"></user>
         </el-tab-pane>
-        <el-tab-pane>
+        <!-- <el-tab-pane>
           <span slot="label">我的简历<i class="el-icon-arrow-right"></i></span>
           <my-resume></my-resume>
-        </el-tab-pane>
+        </el-tab-pane> -->
         <el-tab-pane>
           <span slot="label">投递记录<i class="el-icon-arrow-right"></i></span>
           <delivery></delivery>
         </el-tab-pane>
-        <el-tab-pane>
+        <!-- <el-tab-pane>
           <span slot="label">设置<i class="el-icon-arrow-right"></i></span>
           <setting></setting>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>

@@ -24,7 +24,6 @@ export const pageIntro={
       methods: {
         get(mess) {
           this.mess = mess;
-          console.log(this.mess);
         },
         // handler() {
         //   let info = document.getElementById('aboutusInfo') || null
@@ -49,15 +48,12 @@ export const pageIntro={
           this.$router.push({path: 'jobInfo'})
         },
         getJob () {
-          console.log("getJob")
           let url='/api/job/list';
           let param={
             page:0
           }
-          console.log("sada")
          this.post(url,param).then(res=>{
            this.jobList=res.data.content
-           console.log(res.data)
          })
         },
         getCompany () {

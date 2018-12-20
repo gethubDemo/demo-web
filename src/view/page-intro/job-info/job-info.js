@@ -43,6 +43,11 @@ export const jobInfo={
               }
             });
           })
+        },
+        goBack(){
+          this.$router.push({
+            path:'/'
+          })
         }
       },
 }

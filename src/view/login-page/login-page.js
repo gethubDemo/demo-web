@@ -61,7 +61,9 @@ export const loginPage={
                 var storage=window.localStorage
                 // storage['username']=res.data.token
                 storage.setItem("username",res.data.token)
-                localStorage.setItem('userId', res.data.userId)
+                storage.setItem('userId', res.data.userId)
+                storage.setItem('roleId',res.data.roleId)
+                console.log(res.data.roleId)
                 // console.log(res.data.userId)
                 // let token = window.localStorage.getItem('token')
                 // let token =res.data.token
